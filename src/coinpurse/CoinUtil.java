@@ -16,10 +16,8 @@ public class CoinUtil {
 	 * Method that examines all the coins in a List and returns only the coins
 	 * that have a currency that matches the parameter value.
 	 * 
-	 * @param coinlist
-	 *            is a List of Coin objects. This list is not modified.
-	 * @param currency
-	 *            is the currency we want. Must not be null.
+	 * @param coinlist is a List of Coin objects. This list is not modified.
+	 * @param currency is the currency we want. Must not be null.
 	 * @return a new List containing only the elements from coinlist that have
 	 *         the requested currency.
 	 */
@@ -36,8 +34,7 @@ public class CoinUtil {
 	 * Method to sort a list of coins by currency. On return, the list (coins)
 	 * will be ordered by currency.
 	 * 
-	 * @param coins
-	 *            is a List of Coin objects we want to sort.
+	 * @param coins is a List of Coin objects we want to sort.
 	 *
 	 */
 	public static void sortByCurrency(List<Coin> coins) {
@@ -48,8 +45,7 @@ public class CoinUtil {
 	 * Sum coins by currency and print the sum for each currency. Print one line
 	 * for the sum of each currency.
 	 * 
-	 * @param coins
-	 *            is List of Coin objects
+	 * @param coins is List of Coin objects
 	 */
 	public static void sumByCurrency(List<Coin> coins) {
 		sortByCurrency(coins);
@@ -67,16 +63,13 @@ public class CoinUtil {
 			if (i == coins.size() - 1) {
 				System.out.print(sum + " " + currency + " ");
 			}
-
 		}
-
 	}
 
 	/**
 	 * This method contains some code to test the above methods.
 	 * 
-	 * @param args
-	 *            not used
+	 * @param args not used
 	 */
 	public static void main(String[] args) {
 		String currency = "Rupee";
@@ -125,10 +118,8 @@ public class CoinUtil {
 	/**
 	 * Make a list of coins using given values.
 	 * 
-	 * @param currency
-	 *            is the currency of the coin
-	 * @param values
-	 *            is the value of coin
+	 * @param currency is the currency of the coin
+	 * @param values is the value of coin
 	 * @return the List of Coin object
 	 */
 	public static List<Coin> makeCoins(String currency, double... values) {
@@ -141,10 +132,8 @@ public class CoinUtil {
 	/**
 	 * Print the list on the console, on one line.
 	 * 
-	 * @param items
-	 *            is the List of items that you want to print
-	 * @param separator
-	 *            is String that you want to separate with
+	 * @param items is the List of items that you want to print
+	 * @param separator is String that you want to separate with
 	 */
 	public static void printList(List items, String separator) {
 		Iterator iter = items.iterator();
@@ -155,15 +144,6 @@ public class CoinUtil {
 
 		}
 		System.out.println();
-	}
-
-}
-
-class CompareByCurrency implements Comparator<Coin> {
-
-	@Override
-	public int compare(Coin coin1, Coin coin2) {
-		return coin1.getCurrency().compareToIgnoreCase(coin2.getCurrency());
 	}
 
 }

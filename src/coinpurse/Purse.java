@@ -23,8 +23,7 @@ public class Purse {
 	/**
 	 * Create a purse with a specified capacity.
 	 * 
-	 * @param capacity
-	 *            is maximum number of coins you can put in purse.
+	 * @param capacity is maximum number of coins you can put in purse.
 	 */
 	public Purse(int capacity) {
 		this.capacity = capacity;
@@ -79,14 +78,11 @@ public class Purse {
 	 * Insert a coin into the purse. The coin is only inserted if the purse has
 	 * space for it and the coin has positive value. No worthless coins!
 	 * 
-	 * @param coin
-	 *            is a Coin object to insert into purse
+	 * @param coin is a Coin object to insert into purse
 	 * @return true if coin inserted, false if can't insert
 	 */
 	public boolean insert(Coin coin) {
-		// if the purse is already full then can't insert anything.
-		// TODO complete the insert method
-		if (coin.getValue() <= 0 || this.count() >= this.getCapacity())
+		if (coin.getValue() <= 0 || isFull())
 			return false;
 		money.add(coin);
 		return true;
@@ -97,8 +93,7 @@ public class Purse {
 	 * withdrawn from purse, or return null if cannot withdraw the amount
 	 * requested.
 	 * 
-	 * @param amount
-	 *            is the amount to withdraw
+	 * @param amount is the amount to withdraw
 	 * @return array of Coin objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
@@ -107,14 +102,14 @@ public class Purse {
 			return null;
 		}
 		double moneyLeft = amount;
-		List<Coin> arrayCoin = new ArrayList<Coin>();
+		List<Coin> arrayListCoin = new ArrayList<Coin>();
 		if (amount > 0) {
 			Collections.sort(money);
 			Collections.reverse(money);
 			for (int i = 0; i < money.size(); i++) {
 				if (moneyLeft - money.get(i).getValue() >= 0) {
 					moneyLeft = moneyLeft - money.get(i).getValue();
-					arrayCoin.add(money.get(i));
+					arrayListCoin.add(money.get(i));
 					if (moneyLeft == 0) {
 						break;
 					}
@@ -122,11 +117,11 @@ public class Purse {
 			}
 		}
 		if (moneyLeft == 0) {
-			for (Coin coin : arrayCoin) {
+			for (Coin coin : arrayListCoin) {
 				money.remove(coin);
 			}
-			Coin[] newArrayCoin = new Coin[arrayCoin.size()];
-			arrayCoin.toArray(newArrayCoin);
+			Coin[] newArrayCoin = new Coin[arrayListCoin.size()];
+			arrayListCoin.toArray(newArrayCoin);
 			return newArrayCoin;
 		}
 		return null;

@@ -13,8 +13,7 @@ public class Main {
 	/**
 	 * Configure and start the application.
 	 * 
-	 * @param args
-	 *            not used
+	 * @param args not used
 	 */
 	public static void main(String[] args) {
 		Purse purse = new Purse(CAPACITY);

@@ -15,8 +15,7 @@ public class Coin implements Comparable<Coin> {
 	/**
 	 * A coin with given value using the default currency.
 	 * 
-	 * @param value
-	 *            is the value of the coin
+	 * @param value is the value of the coin
 	 */
 	public Coin(double value) {
 		this.value = value;
@@ -56,10 +55,9 @@ public class Coin implements Comparable<Coin> {
 	 * check two coins are equal or not ,it will be equal if they have the same
 	 * value and currency.
 	 * 
-	 * @param obj
-	 *            is the object that you want to compare.
-	 * @return true if they have the same value and currency, false if they are
-	 *         not same
+	 * @param obj is the object that you want to compare.
+	 * @return true if they have the same value and currency, 
+	 *         false if they are not same
 	 */
 	public boolean equals(Object obj) {
 		if (obj == null)
@@ -84,10 +82,9 @@ public class Coin implements Comparable<Coin> {
 	 * less than another coin, return 1 if this coin value more than another
 	 * coin, return 0 if it has a same value.
 	 * 
-	 * @param other
-	 *            is the coin object that you want to compare with
-	 * @return return -1 if object is null or this coin is less than another coin,
-	 *         return 1 if this coin value more than another coin,
+	 * @param other is the coin object that you want to compare with
+	 * @return return -1 if object is null or this coin is less than another coin, 
+	 *         return 1 if this coin value more than another coin, 
 	 *         return 0 if it has a same value.
 	 */
 	@Override
