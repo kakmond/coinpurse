@@ -8,10 +8,10 @@ import java.util.Comparator;
  * @author Wongsathorn Panichkurkul
  *
  */
-class CompareByCurrency implements Comparator<Coin> {
+class CompareByCurrency implements Comparator<Valuable> {
 
 	@Override
-	public int compare(Coin coin1, Coin coin2) {
+	public int compare(Valuable coin1, Valuable coin2) {
 		return coin1.getCurrency().compareToIgnoreCase(coin2.getCurrency());
 	}
 
