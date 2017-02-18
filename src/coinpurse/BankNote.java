@@ -1,7 +1,14 @@
 package coinpurse;
 
+/**
+ * a banknote with a monetary value , currency and serial number.
+ * 
+ * @author Wongsathorn Panichkurkul
+ *
+ */
 public class BankNote implements Valuable {
 
+	/** the next number of serial number */
 	private static long nextSerialNumber = 1000000;
 	/** default currency. */
 	public static final String DEFAULT_CURRENCY = "Baht";
@@ -15,7 +22,8 @@ public class BankNote implements Valuable {
 	/**
 	 * Initialize a BankNote with given value using the default currency.
 	 * 
-	 * @param value is the value of the BankNote
+	 * @param value
+	 *            is the value of the BankNote
 	 */
 	public BankNote(double value) {
 		this.value = value;

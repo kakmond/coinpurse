@@ -48,14 +48,14 @@ public class Purse {
 	 */
 	public double getBalance() {
 		double balance = 0;
-		for (Valuable coin : money) {
-			balance += coin.getValue();
+		for (Valuable valuable : money) {
+			balance += valuable.getValue();
 		}
 		return balance;
 	}
 
 	/**
-	 * Return the capacity of the coin purse.
+	 * Return the capacity of the purse.
 	 * 
 	 * @return the capacity
 	 */
