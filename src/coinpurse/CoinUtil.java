@@ -5,7 +5,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * Some Coin utility methods for practice using Lists and Comparator.
+ * Some Valuable utility methods for practice using Lists and Comparator.
  * 
  * @author Wongsathorn Panichkurkul
  *
@@ -16,22 +16,22 @@ public class CoinUtil {
 	 * Method that examines all the coins in a List and returns only the coins
 	 * that have a currency that matches the parameter value.
 	 * 
-	 * @param coinlist is a List of Coin objects. This list is not modified.
+	 * @param valuablelist is a List of Valuable objects. This list is not modified.
 	 * @param currency is the currency we want. Must not be null.
-	 * @return a new List containing only the elements from coinlist that have
+	 * @return a new List containing only the elements from valuablelist that have
 	 *         the requested currency.
 	 */
-	public static List<Valuable> filterByCurrency(final List<Valuable> coinlist, String currency) {
-		List<Valuable> newCoin = new ArrayList<Valuable>();
-		for (Valuable valuable : coinlist) {
+	public static List<Valuable> filterByCurrency(final List<Valuable> valuablelist, String currency) {
+		List<Valuable> newList = new ArrayList<Valuable>();
+		for (Valuable valuable : valuablelist) {
 			if (valuable.getCurrency().equals(currency))
-				newCoin.add(valuable);
+				newList.add(valuable);
 		}
-		return newCoin;
+		return newList;
 	}
 
 	/**
-	 * Method to sort a list of coins by currency. On return, the list (coins)
+	 * Method to sort a list of Valuable by currency. On return, the list (Valuable)
 	 * will be ordered by currency.
 	 * 
 	 * @param coins is a List of Coin objects we want to sort.
@@ -42,14 +42,14 @@ public class CoinUtil {
 	}
 
 	/**
-	 * Sum coins by currency and print the sum for each currency. Print one line
+	 * Sum money by currency and print the sum for each currency. Print one line
 	 * for the sum of each currency.
 	 * 
-	 * @param coins is List of Coin objects
+	 * @param valuable is List of Valuable objects
 	 */
-	public static void sumByCurrency(List<Valuable> coins) {
+	public static void sumByCurrency(List<Valuable> valuable) {
 		Map<String, Double> sumByMap = new HashMap<String, Double>();
-		for (Valuable v : coins) {
+		for (Valuable v : valuable) {
 			if (sumByMap.containsKey(v.getCurrency())) {
 				sumByMap.put(v.getCurrency(), v.getValue() + sumByMap.get(v.getCurrency()));
 			} else {
@@ -98,9 +98,9 @@ public class CoinUtil {
 	}
 
 	/**
-	 * Make a list of coins containing different currencies.
+	 * Make a list of Valuable containing different currencies.
 	 * 
-	 * @return the List of Coin objects
+	 * @return the List of Valuable objects
 	 */
 	public static List<Valuable> makeInternationalCoins() {
 		List<Valuable> money = new ArrayList<Valuable>();
@@ -113,14 +113,14 @@ public class CoinUtil {
 	}
 
 	/**
-	 * Make a list of coins using given values.
+	 * Make a list of Valuable using given values.
 	 * 
-	 * @param currency is the currency of the coin
-	 * @param values is the value of coin
-	 * @return the List of Coin object
+	 * @param currency is the currency of the Valuable
+	 * @param values is the value of Valuable
+	 * @return the List of Valuable object
 	 */
-	public static List<Coin> makeCoins(String currency, double... values) {
-		List<Coin> list = new ArrayList<Coin>();
+	public static List<Valuable> makeCoins(String currency, double... values) {
+		List<Valuable> list = new ArrayList<Valuable>();
 		for (double value : values)
 			list.add(new Coin(value, currency));
 		return list;
