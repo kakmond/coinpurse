@@ -75,7 +75,6 @@ public class ConsoleDialog {
 				boolean ok = purse.insert(coin);
 				System.out.println((ok ? "ok" : "FAILED"));
 			}
-
 		}
 		if (scanline.hasNext())
 			System.out.println("Invalid input: " + scanline.next());

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class CoinUtil {
 
 	/**
-	 * Method that examines all the coins in a List and returns only the coins
+	 * Method that examines all the valuable in a List and returns only the valuable
 	 * that have a currency that matches the parameter value.
 	 * 
 	 * @param valuablelist is a List of Valuable objects. This list is not modified.
@@ -34,11 +34,11 @@ public class CoinUtil {
 	 * Method to sort a list of Valuable by currency. On return, the list (Valuable)
 	 * will be ordered by currency.
 	 * 
-	 * @param coins is a List of Coin objects we want to sort.
+	 * @param valuable is a List of Coin objects we want to sort.
 	 *
 	 */
-	public static void sortByCurrency(List<Valuable> coins) {
-		Collections.sort(coins, new CompareByCurrency());
+	public static void sortByCurrency(List<Valuable> valuable) {
+		Collections.sort(valuable, new CompareByCurrency());
 	}
 
 	/**
