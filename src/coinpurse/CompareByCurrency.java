@@ -11,8 +11,8 @@ import java.util.Comparator;
 class CompareByCurrency implements Comparator<Valuable> {
 
 	@Override
-	public int compare(Valuable coin1, Valuable coin2) {
-		return coin1.getCurrency().compareToIgnoreCase(coin2.getCurrency());
+	public int compare(Valuable obj1, Valuable obj2) {
+		return obj1.getCurrency().compareToIgnoreCase(obj2.getCurrency());
 	}
 
 }

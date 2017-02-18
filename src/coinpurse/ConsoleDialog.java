@@ -3,7 +3,7 @@ package coinpurse;
 import java.util.Scanner;
 
 /**
- * User Interface for the Coin Purse. This class provides simple interactive
+ * User Interface for the money Purse. This class provides simple interactive
  * dialog for inserting and removing money to/from the purse, and displaying the
  * balance.
  * 
@@ -54,11 +54,11 @@ public class ConsoleDialog {
 	}
 
 	/**
-	 * Ask the user how many coins to deposit into purse, then deposit them.
+	 * Ask the user how many money to deposit into purse, then deposit them.
 	 * Show result of success or failure.
 	 */
 	public void depositDialog() {
-		System.out.print("Enter value of coin(s) to deposit on one line [eg: 5 5 1]: ");
+		System.out.print("Enter value of coin(s),banknote to deposit on one line [eg: 5 5 1]: ");
 		String inline = console.nextLine();
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
@@ -83,19 +83,19 @@ public class ConsoleDialog {
 
 	/**
 	 * Ask how much money (Baht) to withdraw and then do it. After withdraw,
-	 * show the values of the coins we withdrew.
+	 * show the values of the money we withdrew.
 	 */
 	public void withdrawDialog() {
 		System.out.print("How much to withdraw? ");
 		if (console.hasNextDouble()) {
 			double amount = console.nextDouble();
-			Valuable[] coins = purse.withdraw(amount);
-			if (coins == null)
+			Valuable[] valuable = purse.withdraw(amount);
+			if (valuable == null)
 				System.out.printf("Sorry, couldn't withdraw %g %s\n", amount, CURRENCY);
 			else {
 				System.out.print("You withdrew:");
-				for (int k = 0; k < coins.length; k++) {
-					System.out.print(" " + coins[k].toString());
+				for (int k = 0; k < valuable.length; k++) {
+					System.out.print(" " + valuable[k].toString());
 				}
 				System.out.println();
 			}
