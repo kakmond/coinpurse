@@ -32,7 +32,7 @@ public class PurseTest {
 		assertEquals(0, purse.count());
 	}
 
-	/** Insert some coins. Easy test. */
+	/** Insert some money. Easy test. */
 	@Test
 	public void testInsert() {
 		Purse purse = new Purse(3);
@@ -91,10 +91,10 @@ public class PurseTest {
 		Purse purse = new Purse(10);
 		int[] values = { 1, 10, 1000 };
 		for (int value : values) {
-			Coin coin = new Coin(value);
+			Valuable coin = new Coin(value);
 			assertTrue(purse.insert(coin));
 			assertEquals(value, purse.getBalance(), TOL);
-			Coin[] result = purse.withdraw(value);
+			Valuable[] result = purse.withdraw(value);
 			assertTrue(result != null);
 			assertEquals(1, result.length);
 			assertSame(coin, result[0]);
@@ -118,10 +118,10 @@ public class PurseTest {
 		}
 		assertEquals(amount1 + amount2, purse.getBalance(), TOL);
 		assertEquals(10, purse.count());
-		Coin[] wd1 = purse.withdraw(amount1);
+		Valuable[] wd1 = purse.withdraw(amount1);
 		assertEquals(amount1, sumValue(wd1), TOL);
 		assertEquals(amount2, purse.getBalance(), TOL);
-		Coin[] wd2 = purse.withdraw(amount2);
+		Valuable[] wd2 = purse.withdraw(amount2);
 		assertEquals(0, purse.getBalance(), TOL);
 	}
 
@@ -138,16 +138,16 @@ public class PurseTest {
 	}
 
 	/**
-	 * Sum the value of some coins.
+	 * Sum the value of some money.
 	 * 
-	 * @param coins array of coins
-	 * @return sum of values of the coins
+	 * @param money is array of Valuable
+	 * @return sum of values of the money
 	 */
-	private double sumValue(Coin[] coins) {
-		if (coins == null)
+	private double sumValue(Valuable[] money) {
+		if (money == null)
 			return 0;
 		double sum = 0;
-		for (Coin c : coins)
+		for (Valuable c : money)
 			if (c != null)
 				sum += c.getValue();
 		return sum;

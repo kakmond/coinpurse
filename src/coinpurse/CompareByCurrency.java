@@ -3,7 +3,7 @@ package coinpurse;
 import java.util.Comparator;
 
 /**
- * this class for sort a list of coins by currency
+ * this class for sort a list of money by currency
  * 
  * @author Wongsathorn Panichkurkul
  *

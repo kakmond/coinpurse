@@ -16,28 +16,25 @@ public class CoinUtil {
 	 * Method that examines all the coins in a List and returns only the coins
 	 * that have a currency that matches the parameter value.
 	 * 
-	 * @param coinlist
-	 *            is a List of Coin objects. This list is not modified.
-	 * @param currency
-	 *            is the currency we want. Must not be null.
+	 * @param coinlist is a List of Coin objects. This list is not modified.
+	 * @param currency is the currency we want. Must not be null.
 	 * @return a new List containing only the elements from coinlist that have
 	 *         the requested currency.
 	 */
-	public static List<Valuable> filterByCurrency(final List<Valuable> valuablelist, String currency) {
-		List<Valuable> newValuable = new ArrayList<Valuable>();
-		for (Valuable valuable : valuablelist) {
+	public static List<Valuable> filterByCurrency(final List<Valuable> coinlist, String currency) {
+		List<Valuable> newCoin = new ArrayList<Valuable>();
+		for (Valuable valuable : coinlist) {
 			if (valuable.getCurrency().equals(currency))
-				newValuable.add(valuable);
+				newCoin.add(valuable);
 		}
-		return newValuable;
+		return newCoin;
 	}
 
 	/**
 	 * Method to sort a list of coins by currency. On return, the list (coins)
 	 * will be ordered by currency.
 	 * 
-	 * @param coins
-	 *            is a List of Coin objects we want to sort.
+	 * @param coins is a List of Coin objects we want to sort.
 	 *
 	 */
 	public static void sortByCurrency(List<Valuable> coins) {
@@ -48,33 +45,28 @@ public class CoinUtil {
 	 * Sum coins by currency and print the sum for each currency. Print one line
 	 * for the sum of each currency.
 	 * 
-	 * @param coins
-	 *            is List of Coin objects
+	 * @param coins is List of Coin objects
 	 */
-	public static void sumByCurrency(List<Valuable> valuable) {
+	public static void sumByCurrency(List<Valuable> coins) {
 		Map<String, Double> sumByMap = new HashMap<String, Double>();
-		for (Valuable v : valuable) {
+		for (Valuable v : coins) {
 			if (sumByMap.containsKey(v.getCurrency())) {
-				sumByMap.put(v.getCurrency(), v.getValue()+sumByMap.get(v.getCurrency()));
-			}
-			else
-			{
+				sumByMap.put(v.getCurrency(), v.getValue() + sumByMap.get(v.getCurrency()));
+			} else {
 				sumByMap.put(v.getCurrency(), v.getValue());
 			}
 		}
-		
-		for(String v:sumByMap.keySet())
-		{
-			double value=sumByMap.get(v);
-			System.out.print(v+"-"+value+" ");
+
+		for (String key : sumByMap.keySet()) {
+			double value = sumByMap.get(key);
+			System.out.println(value + " " + key );
 		}
 	}
 
 	/**
 	 * This method contains some code to test the above methods.
 	 * 
-	 * @param args
-	 *            not used
+	 * @param args not used
 	 */
 	public static void main(String[] args) {
 		String currency = "Rupee";
@@ -123,10 +115,8 @@ public class CoinUtil {
 	/**
 	 * Make a list of coins using given values.
 	 * 
-	 * @param currency
-	 *            is the currency of the coin
-	 * @param values
-	 *            is the value of coin
+	 * @param currency is the currency of the coin
+	 * @param values is the value of coin
 	 * @return the List of Coin object
 	 */
 	public static List<Coin> makeCoins(String currency, double... values) {
@@ -139,10 +129,8 @@ public class CoinUtil {
 	/**
 	 * Print the list on the console, on one line.
 	 * 
-	 * @param items
-	 *            is the List of items that you want to print
-	 * @param separator
-	 *            is String that you want to separate with
+	 * @param items is the List of items that you want to print
+	 * @param separator is String that you want to separate with
 	 */
 	public static void printList(List items, String separator) {
 		Iterator iter = items.iterator();

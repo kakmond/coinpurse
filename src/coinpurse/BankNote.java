@@ -2,19 +2,20 @@ package coinpurse;
 
 public class BankNote implements Valuable {
 
-	public static final String DEFAULT_CURRENCY = "Baht";
 	private static long nextSerialNumber = 1000000;
+	/** default currency. */
+	public static final String DEFAULT_CURRENCY = "Baht";
 	/** Value of the BankNote. */
 	private final double value;
 	/** The currency of the BankNote. */
 	private final String currency;
+	/** serial number of the BankNote. */
 	private long serialNumber;
 
 	/**
 	 * Initialize a BankNote with given value using the default currency.
 	 * 
-	 * @param value
-	 *            is the value of the BankNote
+	 * @param value is the value of the BankNote
 	 */
 	public BankNote(double value) {
 		this.value = value;
@@ -26,10 +27,8 @@ public class BankNote implements Valuable {
 	/**
 	 * Initialize a BankNote with given value and currency.
 	 * 
-	 * @param value
-	 *            is the value of BankNote
-	 * @param currency
-	 *            is the currency of BankNote
+	 * @param value is the value of BankNote
+	 * @param currency is the currency of BankNote
 	 */
 	public BankNote(double value, String currency) {
 		this.value = value;
@@ -69,8 +68,7 @@ public class BankNote implements Valuable {
 	 * check two BankNote are equal or not ,it will be equal if they have the
 	 * same value and currency.
 	 * 
-	 * @param obj
-	 *            is the object that you want to compare.
+	 * @param obj is the object that you want to compare.
 	 * @return true if they have the same value and currency, false if they are
 	 *         not same
 	 */
