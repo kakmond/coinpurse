@@ -16,8 +16,18 @@ public class Main {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
+		MoneyFactory.setMoneyFactory(new MalayMoneyFactory());
 		Purse purse = new Purse(CAPACITY);
 		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
 		consoleDialog.run();
+		/*MoneyFactory factory=MoneyFactory.getInstance();
+		Valuable m=factory.createMoney(5);
+		System.out.println(m.toString());
+		Valuable m2=factory.createMoney("10.0");
+		System.out.println(m2.toString());
+		
+		MoneyFactory.setMoneyFactory(new MalayMoneyFactory());
+		Valuable m3=MoneyFactory.getInstance().createMoney(10);
+		System.out.println(m3.toString());*/
 	}
 }

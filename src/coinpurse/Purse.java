@@ -154,12 +154,12 @@ public class Purse {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
-		Purse purse = new Purse(10);
+	/*	Purse purse = new Purse(10);
 		purse.insert(new Coin(5));
 		purse.insert(new BankNote(20));
 		purse.insert(new BankNote(50));
 		purse.withdraw(20);
-		System.out.println(purse.getBalance());
+		System.out.println(purse.getBalance());*/
 	}
 
 }

@@ -18,10 +18,13 @@ public class ConsoleDialog {
 	// the object of Purse
 	private Purse purse;
 
+	MoneyFactory factory = MoneyFactory.getInstance();
+
 	/**
 	 * Initialize a new Purse dialog.
 	 * 
-	 * @param purse is the Purse to interact with.
+	 * @param purse
+	 *            is the Purse to interact with.
 	 */
 	public ConsoleDialog(Purse purse) {
 		this.purse = purse;
@@ -63,21 +66,19 @@ public class ConsoleDialog {
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
 		while (scanline.hasNextDouble()) {
+
 			double value = scanline.nextDouble();
-			if (value >= 20) {
-				BankNote bank = new BankNote(value);
-				System.out.printf("Deposit %s... ", bank.toString());
-				boolean ok = purse.insert(bank);
-				System.out.println((ok ? "ok" : "FAILED"));
-			} else {
-				Coin coin = new Coin(value);
-				System.out.printf("Deposit %s... ", coin.toString());
-				boolean ok = purse.insert(coin);
-				System.out.println((ok ? "ok" : "FAILED"));
+			try {
+				Valuable money = factory.createMoney(value);
+
+				purse.insert(money);
+
+			} catch (IllegalArgumentException ex) {
+				System.out.println("Sorry, " + value + " is not a valid amount.");
+				continue;
 			}
+
 		}
-		if (scanline.hasNext())
-			System.out.println("Invalid input: " + scanline.next());
 	}
 
 	/**

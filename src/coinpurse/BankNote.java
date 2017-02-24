@@ -6,16 +6,16 @@ package coinpurse;
  * @author Wongsathorn Panichkurkul
  *
  */
-public class BankNote implements Valuable {
+public class BankNote extends AbstractValuable {
 
 	/** the next number of serial number */
 	private static long nextSerialNumber = 1000000;
 	/** default currency. */
-	public static final String DEFAULT_CURRENCY = "Baht";
+	//public static final String DEFAULT_CURRENCY = "Baht";
 	/** Value of the BankNote. */
-	private final double value;
+	//private final double value;
 	/** The currency of the BankNote. */
-	private final String currency;
+	//private final String currency;
 	/** serial number of the BankNote. */
 	private long serialNumber;
 
@@ -26,8 +26,7 @@ public class BankNote implements Valuable {
 	 *            is the value of the BankNote
 	 */
 	public BankNote(double value) {
-		this.value = value;
-		this.currency = DEFAULT_CURRENCY;
+		super(value,DEFAULT_CURRENCY);
 		this.serialNumber = this.nextSerialNumber;
 		this.nextSerialNumber++;
 	}
@@ -35,12 +34,13 @@ public class BankNote implements Valuable {
 	/**
 	 * Initialize a BankNote with given value and currency.
 	 * 
-	 * @param value is the value of BankNote
-	 * @param currency is the currency of BankNote
+	 * @param value
+	 *            is the value of BankNote
+	 * @param currency
+	 *            is the currency of BankNote
 	 */
 	public BankNote(double value, String currency) {
-		this.value = value;
-		this.currency = currency;
+		super(value, currency);
 		this.serialNumber = this.nextSerialNumber;
 		this.nextSerialNumber++;
 	}
@@ -70,23 +70,6 @@ public class BankNote implements Valuable {
 	 */
 	public long getSerial() {
 		return this.serialNumber;
-	}
-
-	/**
-	 * check two BankNote are equal or not ,it will be equal if they have the
-	 * same value and currency.
-	 * 
-	 * @param obj is the object that you want to compare.
-	 * @return true if they have the same value and currency, false if they are
-	 *         not same
-	 */
-	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
-		if (obj.getClass() != this.getClass())
-			return false;
-		BankNote other = (BankNote) obj;
-		return other.getValue() == this.getValue() && other.getCurrency().equals(this.getCurrency());
 	}
 
 	/**
