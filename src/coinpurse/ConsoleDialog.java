@@ -12,22 +12,29 @@ import java.util.Scanner;
  */
 public class ConsoleDialog {
 	// default currency for this dialog
-	public static final String CURRENCY = "Baht";
+	private final String CURRENCY;
 	// use a single java.util.Scanner object for reading all input
 	private static Scanner console = new Scanner(System.in);
 	// the object of Purse
 	private Purse purse;
-
-	MoneyFactory factory = MoneyFactory.getInstance();
+	// the object of MoneyFactory
+	private MoneyFactory factory;
 
 	/**
-	 * Initialize a new Purse dialog.
+	 * Initialize a new Purse dialog by purse and country.
 	 * 
-	 * @param purse
-	 *            is the Purse to interact with.
+	 * @param purse is the Purse to interact with.
+	 * @param country is the country that you want to interact with.
 	 */
-	public ConsoleDialog(Purse purse) {
+	public ConsoleDialog(Purse purse, String country) {
+		factory = MoneyFactory.getInstance();
 		this.purse = purse;
+		if (country.equalsIgnoreCase("Thailand"))
+			this.CURRENCY = "Baht";
+		else if (country.equalsIgnoreCase("Malaysia"))
+			this.CURRENCY = "Ringgit";
+		else
+			this.CURRENCY = "";
 	}
 
 	/** run the user interface */
@@ -66,19 +73,23 @@ public class ConsoleDialog {
 		// parse input line into numbers
 		Scanner scanline = new Scanner(inline);
 		while (scanline.hasNextDouble()) {
-
+			Valuable money;
 			double value = scanline.nextDouble();
 			try {
-				Valuable money = factory.createMoney(value);
-
-				purse.insert(money);
+				money = factory.createMoney(value);
 
 			} catch (IllegalArgumentException ex) {
 				System.out.println("Sorry, " + value + " is not a valid amount.");
 				continue;
 			}
-
+			System.out.printf("Deposit %s... ", money.toString());
+			boolean ok = purse.insert(money);
+			System.out.println((ok ? "ok" : "FAILED"));
 		}
+		if (scanline.hasNext())
+			System.out.println("Invalid input: " + scanline.next());
+		scanline.close();
+
 	}
 
 	/**

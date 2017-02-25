@@ -1,48 +1,37 @@
 package coinpurse;
 
 /**
- * a banknote with a monetary value , currency and serial number.
+ * A banknote with a monetary value , currency and serial number.
  * 
  * @author Wongsathorn Panichkurkul
  *
  */
 public class BankNote extends AbstractValuable {
 
-	/** the next number of serial number */
-	private static long nextSerialNumber = 1000000;
-	/** default currency. */
-	//public static final String DEFAULT_CURRENCY = "Baht";
-	/** Value of the BankNote. */
-	//private final double value;
-	/** The currency of the BankNote. */
-	//private final String currency;
 	/** serial number of the BankNote. */
 	private long serialNumber;
 
 	/**
 	 * Initialize a BankNote with given value using the default currency.
 	 * 
-	 * @param value
-	 *            is the value of the BankNote
+	 * @param value is the value of the BankNote
 	 */
 	public BankNote(double value) {
-		super(value,DEFAULT_CURRENCY);
-		this.serialNumber = this.nextSerialNumber;
-		this.nextSerialNumber++;
+		super(value, DEFAULT_CURRENCY);
+		this.setSerialNumber(MoneyFactory.nextSerialNumber);
+		MoneyFactory.nextSerialNumber++;
 	}
 
 	/**
 	 * Initialize a BankNote with given value and currency.
 	 * 
-	 * @param value
-	 *            is the value of BankNote
-	 * @param currency
-	 *            is the currency of BankNote
+	 * @param value is the value of BankNote
+	 * @param currency is the currency of BankNote
 	 */
 	public BankNote(double value, String currency) {
 		super(value, currency);
-		this.serialNumber = this.nextSerialNumber;
-		this.nextSerialNumber++;
+		this.setSerialNumber(MoneyFactory.nextSerialNumber);
+		MoneyFactory.nextSerialNumber++;
 	}
 
 	/**
@@ -68,8 +57,17 @@ public class BankNote extends AbstractValuable {
 	 * 
 	 * @return the serial number of the BankNote
 	 */
-	public long getSerial() {
+	public long getSerialNumber() {
 		return this.serialNumber;
+	}
+
+	/**
+	 * Set the serial number of the BankNote
+	 * 
+	 * @param serialNumber is the serial number that you want to set
+	 */
+	public void setSerialNumber(long serialNumber) {
+		this.serialNumber = serialNumber;
 	}
 
 	/**

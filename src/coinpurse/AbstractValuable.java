@@ -1,36 +1,38 @@
 package coinpurse;
 
+/**
+ * This class is the parent class for Coin and Banknote.
+ * 
+ * @author Wongsathorn Panichkurkul
+ *
+ */
 public abstract class AbstractValuable implements Valuable {
 
 	/** default currency. */
 	public static final String DEFAULT_CURRENCY = "Baht";
 	/** Value of the valuable. */
-	double value;
+	protected double value;
 	/** The currency of the valuable. */
-	String currency;
+	protected String currency;
 
 	/**
 	 * Initialize a AbstractValuable with given value and currency.
 	 * 
-	 * @param value
-	 *            is the value of the BankNote
+	 * @param value is the value of the BankNote
 	 */
 	public AbstractValuable(double value, String currency) {
 		this.value = value;
 		this.currency = currency;
 	}
 
-	// ยังไม่เสร็จ
 	/**
-	 * Compare two Valuable with value, return -1 if object is null or this coin
-	 * is less than another coin, return 1 if this coin value more than another
-	 * coin, return 0 if it has a same value.
-	 * 
-	 * @param other
-	 *            is the Valuable object that you want to compare with
-	 * @return return -1 if object is null or this coin is less than another
-	 *         coin, return 1 if this coin value more than another coin, return
-	 *         0 if it has a same value.
+	 * Compare two Valuable with value. Order items by currency so items with
+	 * same currency are grouped together, and if currency is the same then
+	 * order by value.
+	 *
+	 * @param other is the Valuable object that you want to compare with
+	 * @return if currency is the same, compare by value. if currency is not
+	 *         same, compare by currency.
 	 */
 	public int compareTo(Valuable other) {
 		if (this.getCurrency().equals(other.getCurrency())) {
@@ -48,8 +50,7 @@ public abstract class AbstractValuable implements Valuable {
 	 * check two Valuable are equal or not ,it will be equal if they have the
 	 * same value and currency.
 	 * 
-	 * @param obj
-	 *            is the object that you want to compare.
+	 * @param obj is the object that you want to compare.
 	 * @return true if they have the same value and currency, false if they are
 	 *         not same
 	 */

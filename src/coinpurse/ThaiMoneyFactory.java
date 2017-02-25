@@ -1,9 +1,21 @@
 package coinpurse;
 
+/**
+ * 
+ * this class for create money of Thai.
+ * 
+ * @author Wongsathorn Panichkurkul
+ *
+ */
 public class ThaiMoneyFactory extends MoneyFactory {
-
-
 	
+	/**
+	 * Create money of Thai.
+	 * 
+	 * @param value is a value that you want to create.
+	 * @return the Valuable object.
+	 * @throws IllegalArgumentException if value is not valid.
+	 */
 	@Override
 	public Valuable createMoney(double value) {
 		Valuable valuable;

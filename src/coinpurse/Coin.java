@@ -6,12 +6,6 @@ package coinpurse;
  * @author Wongsathorn Panichkurkul
  */
 public class Coin extends AbstractValuable {
-	/** default currency. */
-	//public static final String DEFAULT_CURRENCY = "Baht";
-	/** Value of the coin. */
-	//private final double value;
-	/** The currency, of course. */
-	//private final String currency;
 
 	/**
 	 * A coin with given value using the default currency.
@@ -60,6 +54,12 @@ public class Coin extends AbstractValuable {
 	 * @return the description of the coin
 	 */
 	public String toString() {
+		if (this.currency.equals("Baht") && this.value < 1) {
+			return this.getValue() * 100 + "-" + this.getCurrency();
+		}
+		if (this.currency.equals("Sen") && this.value < 1) {
+			return this.getValue() * 100 + "-" + this.getCurrency();
+		}
 		return this.getValue() + "-" + this.getCurrency();
 	}
 
