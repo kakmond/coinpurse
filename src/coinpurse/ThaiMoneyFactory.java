@@ -10,7 +10,7 @@ package coinpurse;
 public class ThaiMoneyFactory extends MoneyFactory {
 
 	/**
-	 * Create money of Thailand.
+	 * Create money of Thai.
 	 * 
 	 * @param value is a value that you want to create.
 	 * @return the Valuable object.
