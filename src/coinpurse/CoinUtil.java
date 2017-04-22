@@ -138,7 +138,6 @@ public class CoinUtil {
 			System.out.print(iter.next());
 			if (iter.hasNext())
 				System.out.print(separator);
-
 		}
 		System.out.println();
 	}

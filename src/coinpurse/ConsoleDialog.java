@@ -23,25 +23,22 @@ public class ConsoleDialog {
 	/**
 	 * Initialize a new Purse dialog by purse and country.
 	 * 
-	 * @param purse is the Purse to interact with.
-	 * @param country is the country that you want to interact with.
+	 * @param purse
+	 *            is the Purse to interact with.
+	 * @param country
+	 *            is the country that you want to interact with.
 	 */
-	public ConsoleDialog(Purse purse, String country) {
+	public ConsoleDialog(Purse purse) {
 		factory = MoneyFactory.getInstance();
 		this.purse = purse;
-		if (country.equalsIgnoreCase("Thailand"))
-			this.CURRENCY = "Baht";
-		else if (country.equalsIgnoreCase("Malaysia"))
-			this.CURRENCY = "Ringgit";
-		else
-			this.CURRENCY = "";
+		this.CURRENCY = MoneyFactory.CURRENCY;
 	}
 
 	/** run the user interface */
 	public void run() {
 		String choice = "";
 		while (true) {
-			System.out.printf("Purse contains %.2f %s\n", purse.getBalance(), CURRENCY);
+			System.out.printf("Purse contains %.2f %s\n", purse.getBalance(), this.CURRENCY);
 			if (purse.isFull())
 				System.out.println("Purse is FULL.");
 			// print a list of choices

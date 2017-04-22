@@ -11,9 +11,12 @@ public abstract class MoneyFactory {
 	private static MoneyFactory theMoneyFactory = null;
 	/** the next number of serial number */
 	public static long nextSerialNumber = 1000000;
+	/** the current currency */
+	public static String CURRENCY = "Baht";
 
 	/**
-	 * constructor is protected to prevent other classes from creating objects except subclass.
+	 * constructor is protected to prevent other classes from creating objects
+	 * except subclass.
 	 */
 	protected MoneyFactory() {
 	}
@@ -57,10 +60,14 @@ public abstract class MoneyFactory {
 
 	/**
 	 * Set the local factory.
+	 * 
 	 * @param factory is the subclass of MoneyFactory.
 	 */
 	public static void setMoneyFactory(MoneyFactory factory) {
+		if (factory instanceof MalayMoneyFactory)
+			CURRENCY = "Ringgit";
+		else
+			CURRENCY = "Baht";
 		theMoneyFactory = factory;
-	};
-
+	}
 }

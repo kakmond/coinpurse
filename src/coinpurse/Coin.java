@@ -57,7 +57,7 @@ public class Coin extends AbstractValuable {
 		if (this.currency.equals("Baht") && this.value < 1) {
 			return this.getValue() * 100 + "-" + this.getCurrency();
 		}
-		if (this.currency.equals("Sen") && this.value < 1) {
+		if ((this.currency.equals("Sen") || this.currency.equals("Satang")) && this.value < 1) {
 			return this.getValue() * 100 + "-" + this.getCurrency();
 		}
 		return this.getValue() + "-" + this.getCurrency();

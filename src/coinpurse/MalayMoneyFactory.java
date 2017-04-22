@@ -20,14 +20,26 @@ public class MalayMoneyFactory extends MoneyFactory {
 	public Valuable createMoney(double value) {
 		Valuable valuable;
 		if (value == 0.05 || value == 0.10 || value == 0.20 || value == 0.50) {
-			String currency = "Sen";
-			valuable = new Coin(value, currency);
+			valuable = new Coin(value, "Sen");
 		} else if (value == 1 || value == 2 || value == 5 | value == 10 || value == 20 || value == 50 || value == 100) {
-			String currency = "Ringgit";
-			valuable = new BankNote(value, currency);
+			valuable = new BankNote(value, "Ringgit");
 		} else
 			throw new IllegalArgumentException();
 		return valuable;
+	}
+
+	/**
+	 * Test the MoneyFactory.
+	 * 
+	 * @param arg not used
+	 */
+	public static void main(String[] arg) {
+		MoneyFactory.setMoneyFactory(new MalayMoneyFactory());
+		MoneyFactory factory = MoneyFactory.getInstance();
+		Valuable m = factory.createMoney(0.5);
+		System.out.println(m.toString());
+		Valuable m2 = factory.createMoney("100.0");
+		System.out.println(m2.toString());
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * A purse contains money. You can insert money, withdraw money, check the
@@ -12,7 +13,7 @@ import java.util.List;
  * 
  * @author Wongsathorn Panichkurkul
  */
-public class Purse {
+public class Purse extends Observable {
 	/** Collection of objects in the purse. */
 	private List<Valuable> money = new ArrayList<Valuable>();
 	/**
@@ -24,8 +25,7 @@ public class Purse {
 	/**
 	 * Create a purse with a specified capacity.
 	 * 
-	 * @param capacity
-	 *            is maximum number of money that you can put in purse.
+	 * @param capacity is maximum number of money that you can put in purse.
 	 */
 	public Purse(int capacity) {
 		this.capacity = capacity;
@@ -48,16 +48,15 @@ public class Purse {
 	 */
 	public double getBalance() {
 		double balance = 0;
-		for (Valuable valuable : money) {
+		for (Valuable valuable : money)
 			balance += valuable.getValue();
-		}
 		return balance;
 	}
 
 	/**
 	 * Return the capacity of the purse.
 	 * 
-	 * @return the capacity
+	 * @return the capacity.
 	 */
 	public int getCapacity() {
 		return this.capacity;
@@ -79,14 +78,15 @@ public class Purse {
 	 * Insert a money into the purse. The money is only inserted if the purse
 	 * has space for it and the money has positive value. No worthless money!
 	 * 
-	 * @param valuable
-	 *            is a Valuable object to insert into purse
+	 * @param valuable is a Valuable object to insert into purse
 	 * @return true if money inserted, false if can't insert
 	 */
 	public boolean insert(Valuable valuable) {
 		if (valuable.getValue() <= 0 || isFull())
 			return false;
 		money.add(valuable);
+		super.setChanged();
+		super.notifyObservers();
 		return true;
 	}
 
@@ -100,9 +100,8 @@ public class Purse {
 	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-		if (amount < 0) {
+		if (amount < 0)
 			return null;
-		}
 		double moneyLeft = amount;
 		List<Valuable> valuablelist = new ArrayList<Valuable>();
 		if (amount > 0) {
@@ -120,22 +119,23 @@ public class Purse {
 			Collections.reverse(money);
 			for (int i = 0; i < money.size(); i++) {
 				if (moneyLeft - money.get(i).getValue() >= 0) {
-					moneyLeft = moneyLeft - money.get(i).getValue();
+					moneyLeft -= money.get(i).getValue();
 					valuablelist.add(money.get(i));
-					if (moneyLeft == 0) {
+					if (moneyLeft == 0)
 						break;
-					}
 				}
 			}
 		}
 		if (moneyLeft == 0) {
-			for (Valuable valuable : valuablelist) {
+			for (Valuable valuable : valuablelist)
 				money.remove(valuable);
-			}
 			Valuable[] returnArray = new Valuable[valuablelist.size()];
 			valuablelist.toArray(returnArray);
+			super.setChanged();
+			super.notifyObservers();
 			return returnArray;
 		}
+
 		return null;
 	}
 
@@ -154,12 +154,12 @@ public class Purse {
 	 * @param args not used
 	 */
 	public static void main(String[] args) {
-	/*	Purse purse = new Purse(10);
+		Purse purse = new Purse(10);
 		purse.insert(new Coin(5));
 		purse.insert(new BankNote(20));
 		purse.insert(new BankNote(50));
 		purse.withdraw(20);
-		System.out.println(purse.getBalance());*/
+		System.out.println(purse.getBalance());
 	}
 
 }

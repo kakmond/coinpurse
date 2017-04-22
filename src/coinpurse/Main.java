@@ -2,6 +2,9 @@ package coinpurse;
 
 import java.util.ResourceBundle;
 
+import coinpurse.gui.PurseBalanceObserver;
+import coinpurse.gui.PurseStatusObserver;
+
 /**
  * A main class to create objects and connect objects together. The user
  * interface needs a reference to coin purse.
@@ -10,12 +13,12 @@ import java.util.ResourceBundle;
  */
 public class Main {
 	// the capacity of the purse
-	private static int CAPACITY = 10;
+	private static final int CAPACITY = 10;
 
 	/**
 	 * Configure and start the application.
 	 * 
-	 * @param args not used
+	 * @param args not used.
 	 */
 	public static void main(String[] args) {
 		ResourceBundle bundle = ResourceBundle.getBundle("purse");
@@ -34,8 +37,15 @@ public class Main {
 			System.exit(1);
 		else
 			MoneyFactory.setMoneyFactory(factory);
+
 		Purse purse = new Purse(CAPACITY);
-		ConsoleDialog consoleDialog = new ConsoleDialog(purse, "Thailand");
+		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
+		PurseBalanceObserver balanceObserver = new PurseBalanceObserver();
+		PurseStatusObserver statusObserver = new PurseStatusObserver();
+		purse.addObserver(balanceObserver);
+		purse.addObserver(statusObserver);
+		balanceObserver.run();
+		statusObserver.run();
 		consoleDialog.run();
 	}
 }

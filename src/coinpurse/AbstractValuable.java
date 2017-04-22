@@ -18,7 +18,8 @@ public abstract class AbstractValuable implements Valuable {
 	/**
 	 * Initialize a AbstractValuable with given value and currency.
 	 * 
-	 * @param value is the value of the BankNote
+	 * @param value
+	 *            is the value of the BankNote
 	 */
 	public AbstractValuable(double value, String currency) {
 		this.value = value;
@@ -30,7 +31,8 @@ public abstract class AbstractValuable implements Valuable {
 	 * same currency are grouped together, and if currency is the same then
 	 * order by value.
 	 *
-	 * @param other is the Valuable object that you want to compare with
+	 * @param other
+	 *            is the Valuable object that you want to compare with
 	 * @return if currency is the same, compare by value. if currency is not
 	 *         same, compare by currency.
 	 */
@@ -50,7 +52,8 @@ public abstract class AbstractValuable implements Valuable {
 	 * check two Valuable are equal or not ,it will be equal if they have the
 	 * same value and currency.
 	 * 
-	 * @param obj is the object that you want to compare.
+	 * @param obj
+	 *            is the object that you want to compare.
 	 * @return true if they have the same value and currency, false if they are
 	 *         not same
 	 */
@@ -65,18 +68,18 @@ public abstract class AbstractValuable implements Valuable {
 	}
 
 	/**
-	 * Get the value of coin.
+	 * Get the value of money.
 	 * 
-	 * @return value of coin
+	 * @return value of money.
 	 */
 	public double getValue() {
 		return this.value;
 	}
 
 	/**
-	 * Get the currency of the coin.
+	 * Get the currency of the money.
 	 * 
-	 * @return the currency of the coin
+	 * @return the currency of the money.
 	 */
 	public String getCurrency() {
 		return this.currency;
