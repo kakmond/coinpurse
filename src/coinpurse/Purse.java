@@ -147,6 +147,10 @@ public class Purse extends Observable {
 	public String toString() {
 		return this.count() + " valuable with value " + this.getBalance();
 	}
+	
+	public List<Valuable> listPurse() {
+		return Collections.unmodifiableList(money);
+	}
 
 	/**
 	 * Test the Purse

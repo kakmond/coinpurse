@@ -46,7 +46,6 @@ public class PurseStatusObserver implements Observer {
 				progressBar.setValue(purse.count());
 				textStatus.setText(" " + purse.count());
 			}
-			this.frameStatus.pack();
 		}
 	}
 

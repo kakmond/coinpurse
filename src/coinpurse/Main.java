@@ -3,6 +3,7 @@ package coinpurse;
 import java.util.ResourceBundle;
 
 import coinpurse.gui.PurseBalanceObserver;
+import coinpurse.gui.PurseListModel;
 import coinpurse.gui.PurseStatusObserver;
 
 /**
@@ -18,7 +19,8 @@ public class Main {
 	/**
 	 * Configure and start the application.
 	 * 
-	 * @param args not used.
+	 * @param args
+	 *            not used.
 	 */
 	public static void main(String[] args) {
 		ResourceBundle bundle = ResourceBundle.getBundle("purse");
@@ -42,8 +44,11 @@ public class Main {
 		ConsoleDialog consoleDialog = new ConsoleDialog(purse);
 		PurseBalanceObserver balanceObserver = new PurseBalanceObserver();
 		PurseStatusObserver statusObserver = new PurseStatusObserver();
+		PurseListModel list = new PurseListModel(purse);
 		purse.addObserver(balanceObserver);
 		purse.addObserver(statusObserver);
+		purse.addObserver(list);
+		list.run();
 		balanceObserver.run();
 		statusObserver.run();
 		consoleDialog.run();
