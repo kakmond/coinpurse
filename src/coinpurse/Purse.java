@@ -1,10 +1,12 @@
 package coinpurse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
+
+import coinpurse.strategy.*;
 
 /**
  * A purse contains money. You can insert money, withdraw money, check the
@@ -21,11 +23,13 @@ public class Purse extends Observable {
 	 * when the purse is created and cannot be changed.
 	 */
 	private final int capacity;
+	private WithdrawStrategy strategy = new RecursiveWithdraw();
 
 	/**
 	 * Create a purse with a specified capacity.
 	 * 
-	 * @param capacity is maximum number of money that you can put in purse.
+	 * @param capacity
+	 *            is maximum number of money that you can put in purse.
 	 */
 	public Purse(int capacity) {
 		this.capacity = capacity;
@@ -78,7 +82,8 @@ public class Purse extends Observable {
 	 * Insert a money into the purse. The money is only inserted if the purse
 	 * has space for it and the money has positive value. No worthless money!
 	 * 
-	 * @param valuable is a Valuable object to insert into purse
+	 * @param valuable
+	 *            is a Valuable object to insert into purse
 	 * @return true if money inserted, false if can't insert
 	 */
 	public boolean insert(Valuable valuable) {
@@ -90,52 +95,41 @@ public class Purse extends Observable {
 		return true;
 	}
 
+	public void setWithdrawStrategy(WithdrawStrategy strategy) {
+		this.strategy = strategy;
+	}
+
 	/**
 	 * Withdraw the requested amount of money. Return an array of Valuable
 	 * withdrawn from purse, or return null if cannot withdraw the amount
 	 * requested.
 	 * 
-	 * @param amount is the amount to withdraw
+	 * @param amount
+	 *            is the amount to withdraw
 	 * @return array of Valuable objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
 	public Valuable[] withdraw(double amount) {
-		if (amount < 0)
-			return null;
-		double moneyLeft = amount;
-		List<Valuable> valuablelist = new ArrayList<Valuable>();
-		if (amount > 0) {
-			Collections.sort(money, new Comparator<Valuable>() {
-				@Override
-				public int compare(Valuable o1, Valuable o2) {
-					if (o1.getValue() > o2.getValue())
-						return 1;
-					else if (o1.getValue() < o2.getValue())
-						return -1;
-					else
-						return 0;
-				}
-			});
-			Collections.reverse(money);
-			for (int i = 0; i < money.size(); i++) {
-				if (moneyLeft - money.get(i).getValue() >= 0) {
-					moneyLeft -= money.get(i).getValue();
-					valuablelist.add(money.get(i));
-					if (moneyLeft == 0)
-						break;
+		if (amount >= 0) {
+			List<Valuable> result = strategy.withdraw(amount, money);
+			if (result != null) {
+				if (this.strategy instanceof RecursiveWithdraw) {
+					for (Valuable v : result)
+						this.money.remove(v);
+					Valuable[] valuable = new Valuable[result.size()];
+					result.toArray(valuable);
+					super.setChanged();
+					super.notifyObservers();
+					return valuable;
+				} else {
+					Valuable[] valuable = new Valuable[result.size()];
+					result.toArray(valuable);
+					super.setChanged();
+					super.notifyObservers();
+					return valuable;
 				}
 			}
 		}
-		if (moneyLeft == 0) {
-			for (Valuable valuable : valuablelist)
-				money.remove(valuable);
-			Valuable[] returnArray = new Valuable[valuablelist.size()];
-			valuablelist.toArray(returnArray);
-			super.setChanged();
-			super.notifyObservers();
-			return returnArray;
-		}
-
 		return null;
 	}
 
@@ -147,23 +141,25 @@ public class Purse extends Observable {
 	public String toString() {
 		return this.count() + " valuable with value " + this.getBalance();
 	}
-	
+
 	public List<Valuable> listPurse() {
 		return Collections.unmodifiableList(money);
 	}
 
 	/**
-	 * Test the Purse
+	 * Test the Purse.
 	 * 
-	 * @param args not used
+	 * @param args
+	 *            not used
 	 */
 	public static void main(String[] args) {
 		Purse purse = new Purse(10);
-		purse.insert(new Coin(5));
-		purse.insert(new BankNote(20));
-		purse.insert(new BankNote(50));
-		purse.withdraw(20);
-		System.out.println(purse.getBalance());
+		purse.insert(new Coin(10));
+		purse.insert(new Coin(100));
+		purse.insert(new Coin(1000));
+		purse.setWithdrawStrategy(new RecursiveWithdraw());
+		System.out.println((purse.withdraw(1000)).length);
+		System.out.println(purse.money.toString());
 	}
 
 }
