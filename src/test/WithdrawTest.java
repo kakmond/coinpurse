@@ -8,8 +8,6 @@ import coinpurse.BankNote;
 import coinpurse.Coin;
 import coinpurse.Purse;
 import coinpurse.Valuable;
-import coinpurse.strategy.GreedyWithdraw;
-import coinpurse.strategy.RecursiveWithdraw;
 
 public class WithdrawTest {
 	/** tolerance for comparing two double values */
@@ -22,15 +20,20 @@ public class WithdrawTest {
 	@Before
 	public void setUp() {
 		purse = new Purse(5);
-		purse.setWithdrawStrategy(new RecursiveWithdraw());
 	}
 
+	/**
+	 * Test withdraw if the purse is empty.
+	 */
 	@Test
 	public void withdrawEmptyPurseTest() {
 		assertNull(purse.withdraw(20));
 		assertNull(purse.withdraw(1));
 	}
 
+	/**
+	 * Simple test of withdrawing.
+	 */
 	@Test
 	public void simpleWithdrawTest() {
 		purse.insert(new Coin(5));
@@ -43,6 +46,9 @@ public class WithdrawTest {
 		assertEquals(0, purse.getBalance(), TOL);
 	}
 
+	/**
+	 * Harder test of withdrawing.
+	 */
 	@Test
 	public void hardWithdrawTest() {
 		purse.insert(new Coin(1));
@@ -54,5 +60,17 @@ public class WithdrawTest {
 		Valuable[] expect2 = { new BankNote(20) };
 		assertArrayEquals(expect2, purse.withdraw(20));
 		assertEquals(0, purse.getBalance(), TOL);
+	}
+
+	/**
+	 * Test impossible case of withdrawing.
+	 */
+	@Test
+	public void impossibleWithdrawTest() {
+		purse.insert(new Coin(1));
+		purse.insert(new Coin(2));
+		purse.insert(new BankNote(20));
+		assertNull(purse.withdraw(1000));
+		assertNull(purse.withdraw(-50));
 	}
 }

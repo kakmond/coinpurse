@@ -4,6 +4,13 @@ import java.util.List;
 
 import coinpurse.Valuable;
 
+/**
+ * WithdrawStrategy perform withdraw. Then we can change the withdraw algorithm
+ * anytime without changing the Purse class.
+ * 
+ * @author Wongsathorn Panichkurkul
+ *
+ */
 public interface WithdrawStrategy {
 
 	/**

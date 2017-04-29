@@ -1,7 +1,6 @@
 package coinpurse;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
@@ -23,7 +22,7 @@ public class Purse extends Observable {
 	 * when the purse is created and cannot be changed.
 	 */
 	private final int capacity;
-	private WithdrawStrategy strategy = new RecursiveWithdraw();
+	private WithdrawStrategy strategy = new GreedyWithdraw();
 
 	/**
 	 * Create a purse with a specified capacity.
@@ -82,8 +81,7 @@ public class Purse extends Observable {
 	 * Insert a money into the purse. The money is only inserted if the purse
 	 * has space for it and the money has positive value. No worthless money!
 	 * 
-	 * @param valuable
-	 *            is a Valuable object to insert into purse
+	 * @param valuable is a Valuable object to insert into purse
 	 * @return true if money inserted, false if can't insert
 	 */
 	public boolean insert(Valuable valuable) {
@@ -95,6 +93,11 @@ public class Purse extends Observable {
 		return true;
 	}
 
+	/**
+	 * Specify the strategy.
+	 * 
+	 * @param strategy is the strategy that you want to set to.
+	 */
 	public void setWithdrawStrategy(WithdrawStrategy strategy) {
 		this.strategy = strategy;
 	}
@@ -104,8 +107,7 @@ public class Purse extends Observable {
 	 * withdrawn from purse, or return null if cannot withdraw the amount
 	 * requested.
 	 * 
-	 * @param amount
-	 *            is the amount to withdraw
+	 * @param amount is the amount to withdraw.
 	 * @return array of Valuable objects for money withdrawn, or null if cannot
 	 *         withdraw requested amount.
 	 */
@@ -113,21 +115,13 @@ public class Purse extends Observable {
 		if (amount >= 0) {
 			List<Valuable> result = strategy.withdraw(amount, money);
 			if (result != null) {
-				if (this.strategy instanceof RecursiveWithdraw) {
-					for (Valuable v : result)
-						this.money.remove(v);
-					Valuable[] valuable = new Valuable[result.size()];
-					result.toArray(valuable);
-					super.setChanged();
-					super.notifyObservers();
-					return valuable;
-				} else {
-					Valuable[] valuable = new Valuable[result.size()];
-					result.toArray(valuable);
-					super.setChanged();
-					super.notifyObservers();
-					return valuable;
-				}
+				for (Valuable v : result)
+					this.money.remove(v);
+				Valuable[] valuable = new Valuable[result.size()];
+				result.toArray(valuable);
+				super.setChanged();
+				super.notifyObservers();
+				return valuable;
 			}
 		}
 		return null;
@@ -142,24 +136,13 @@ public class Purse extends Observable {
 		return this.count() + " valuable with value " + this.getBalance();
 	}
 
+	/**
+	 * Returns an unmodifiable view of the specified list.
+	 * 
+	 * @return an unmodifiable view of the specified list.
+	 */
 	public List<Valuable> listPurse() {
 		return Collections.unmodifiableList(money);
-	}
-
-	/**
-	 * Test the Purse.
-	 * 
-	 * @param args
-	 *            not used
-	 */
-	public static void main(String[] args) {
-		Purse purse = new Purse(10);
-		purse.insert(new Coin(10));
-		purse.insert(new Coin(100));
-		purse.insert(new Coin(1000));
-		purse.setWithdrawStrategy(new RecursiveWithdraw());
-		System.out.println((purse.withdraw(1000)).length);
-		System.out.println(purse.money.toString());
 	}
 
 }
