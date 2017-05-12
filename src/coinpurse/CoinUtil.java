@@ -126,6 +126,28 @@ public class CoinUtil {
 		System.out.print("coins= ");
 		printList(coins, " ");
 		sumByCurrency(coins);
+		
+		System.out.println("----------------------------");
+		Coin testCoin = CoinUtil.max(new Coin(5), new Coin(10), new Coin(2));
+		System.out.println(testCoin);
+		String testString = CoinUtil.max("A", "B");
+		System.out.println(testString);
+		System.out.println("----------------------------");
+		List<Coin> coins1 = Arrays.asList(new Coin(5, "Baht"), new Coin(100, "Kip"));
+		CoinUtil.sortByCurrency(coins1);
+		System.out.println(coins1);
+		System.out.println(CoinUtil.filterByCurrency(coins1, "Baht"));
+		System.out.println("----------------------------");
+		Coin c1 = new Coin(5);
+		Coin c2 = new Coin(10);
+		BankNote banknote = new BankNote(100, "Baht");
+		Valuable test = CoinUtil.max(c1, c2, banknote);
+		System.out.println(test);
+		System.out.println("----------------------------");
+
+		List<String> words = Arrays.asList("Dog", "element", "Bird", "Zebra", "snake");
+		Predicate<String> shortWord = (s) -> (s.length() <= 4);
+		words.stream().filter(shortWord).forEach((a) -> System.out.println(a));
 
 	}
 
