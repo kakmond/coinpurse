@@ -1,7 +1,7 @@
 package coinpurse;
 
 import java.util.*;
-import java.util.stream.Collector;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -13,31 +13,62 @@ import java.util.stream.Collectors;
 public class CoinUtil {
 
 	/**
-	 * Method that examines all the valuable in a List and returns only the valuable
-	 * that have a currency that matches the parameter value.
+	 * Return the larger of a and b, according to the natural.
 	 * 
-	 * @param valuablelist is a List of Valuable objects. This list is not modified.
-	 * @param currency is the currency we want. Must not be null.
-	 * @return a new List containing only the elements from valuablelist that have
-	 *         the requested currency.
+	 * @param a
+	 *            is the Object that extends Comparable.
+	 * @return max value.
 	 */
-	public static List<Valuable> filterByCurrency(final List<Valuable> valuablelist, String currency) {
-		List<Valuable> newList = new ArrayList<Valuable>();
-		for (Valuable valuable : valuablelist) {
-			if (valuable.getCurrency().equals(currency))
-				newList.add(valuable);
+	public static <E extends Comparable<? super E>> E max(E... a) {
+		E max = a[0];
+		for (int i = 1; i < a.length; i++) {
+			if (max.compareTo(a[i]) < 0)
+				max = a[i];
 		}
-		return newList;
+		return max;
 	}
 
 	/**
-	 * Method to sort a list of Valuable by currency. On return, the list (Valuable)
-	 * will be ordered by currency.
+	 * Method that examines all the valuable in a List and returns only the
+	 * valuable that have a currency that matches the parameter value.
 	 * 
-	 * @param valuable is a List of Valuable objects we want to sort.
+	 * @param valuablelist
+	 *            is a List of Valuable objects. This list is not modified.
+	 * @param currency
+	 *            is the currency we want. Must not be null.
+	 * @return
+	 * @return a new List containing only the elements from valuablelist that
+	 *         have the requested currency.
+	 */
+	public static <E extends Valuable> List<E> filterByCurrency(final List<E> valuablelist, String currency) {
+		Predicate<E> checkNull = new Predicate<E>() {
+			@Override
+			public boolean test(E t) {
+				if (t == null)
+					return false;
+				return true;
+			}
+		};
+		Predicate<E> checkCurrency = new Predicate<E>() {
+			@Override
+			public boolean test(E t) {
+				if (t.getCurrency().equals(currency))
+					return true;
+				return false;
+			}
+		};
+		return valuablelist.stream().filter(checkNull).filter(checkCurrency).collect(Collectors.toList());
+	}
+
+	/**
+	 * Method to sort a list of Valuable by currency. On return, the list
+	 * (Valuable) will be ordered by currency.
+	 * 
+	 * @param valuable
+	 *            is a List of Valuable objects we want to sort.
 	 *
 	 */
-	public static void sortByCurrency(List<Valuable> valuable) {
+	public static void sortByCurrency(List<? extends Valuable> valuable) {
 		Collections.sort(valuable, new CompareByCurrency());
 	}
 
@@ -45,7 +76,8 @@ public class CoinUtil {
 	 * Sum money by currency and print the sum for each currency. Print one line
 	 * for the sum of each currency.
 	 * 
-	 * @param valuable is List of Valuable objects
+	 * @param valuable
+	 *            is List of Valuable objects
 	 */
 	public static void sumByCurrency(List<Valuable> valuable) {
 		Map<String, Double> sumByMap = new HashMap<String, Double>();
@@ -56,17 +88,17 @@ public class CoinUtil {
 				sumByMap.put(v.getCurrency(), v.getValue());
 			}
 		}
-
 		for (String key : sumByMap.keySet()) {
 			double value = sumByMap.get(key);
-			System.out.println(value + " " + key );
+			System.out.println(value + " " + key);
 		}
 	}
 
 	/**
 	 * This method contains some code to test the above methods.
 	 * 
-	 * @param args not used
+	 * @param args
+	 *            not used
 	 */
 	public static void main(String[] args) {
 		String currency = "Rupee";
@@ -115,8 +147,10 @@ public class CoinUtil {
 	/**
 	 * Make a list of Valuable using given values.
 	 * 
-	 * @param currency is the currency of the Valuable
-	 * @param values is the value of Valuable
+	 * @param currency
+	 *            is the currency of the Valuable
+	 * @param values
+	 *            is the value of Valuable
 	 * @return the List of Valuable object
 	 */
 	public static List<Valuable> makeCoins(String currency, double... values) {
@@ -129,8 +163,10 @@ public class CoinUtil {
 	/**
 	 * Print the list on the console, on one line.
 	 * 
-	 * @param items is the List of items that you want to print
-	 * @param separator is String that you want to separate with
+	 * @param items
+	 *            is the List of items that you want to print
+	 * @param separator
+	 *            is String that you want to separate with
 	 */
 	public static void printList(List items, String separator) {
 		Iterator iter = items.iterator();
